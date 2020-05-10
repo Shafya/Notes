@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "78719713627",
+    "firebase_url": "https://shafyanotes.firebaseio.com",
+    "project_id": "shafyanotes",
+    "storage_bucket": "shafyanotes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78719713627:android:352bb287558a0c3d5c5a7e",
+        "android_client_info": {
+          "package_name": "space.shafya.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78719713627-oos1441bgm0f319qedgo7e0v8jkvqvtt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "space.shafya.notes",
+            "certificate_hash": "0b4dcf87e0fb30554bc8b75ce301f05f8e48915c"
+          }
+        },
+        {
+          "client_id": "78719713627-e4p9q7uluh6jqac94tjfabco8ipvn74a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXm73LeNfl2jRogfiYjeTEctf57Y4QDq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78719713627-e4p9q7uluh6jqac94tjfabco8ipvn74a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
