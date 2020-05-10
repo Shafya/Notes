@@ -31,7 +31,7 @@ import space.shafya.notes.Models.User;
 
 public class Sign extends AppCompatActivity {
 
-    private static final String TAG = "myLogs";
+    private static final String TAG = "Sign";
     Button btnSignIn, btnRegister;
     FirebaseAuth auth;
     FirebaseDatabase db;
@@ -52,7 +52,7 @@ public class Sign extends AppCompatActivity {
         users = db.getReference("Users");
         root = findViewById(R.id.root_element);
 
-        //Creating a notepad with saving data on the server.
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,14 +111,14 @@ public class Sign extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
+                                Log.d(TAG, "Вход выполнен");
                                 finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast toast = Toast.makeText(Sign.this, "Ошибка авторизации" + e.getMessage(), Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 400);
-                        toast.show();
+                        Log.d(TAG, "Ошибка при входе");
+                        Snackbar.make(root, "Произошла ошибка при авторизации", Snackbar.LENGTH_LONG).show();
                     }
                 });
 
@@ -198,7 +198,7 @@ public class Sign extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Snackbar.make(root, "Произошла ошибка при авторизации", Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(root, "Произошла ошибка при регистрации", Snackbar.LENGTH_LONG).show();
                                     }
                                 });
                             }

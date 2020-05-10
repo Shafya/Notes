@@ -15,8 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Main";
-    Button btn;
-    TextView textView;
     FirebaseAuth auth;
 
 
@@ -26,35 +24,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.d(TAG, "Запуск activity");
-
         auth = FirebaseAuth.getInstance();
-        if (auth.getCurrentUser() == null) {
-            startActivity(new Intent(getApplicationContext(), Sign.class));
-        }
-        textView = findViewById(R.id.text);
-        btn = (Button) findViewById(R.id.button);
-
-        //Log.d(TAG, "TextView auth" + auth.getCurrentUser().getUid());
-        //textView.setText(auth.getCurrentUser().getUid());
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
     }
 
     @Override
-    public void onBackPressed() {
-        System.exit(0);
-    }
-
-    private void signOut() {
-        auth.signOut();
-        Log.d(TAG, "Выход из приложения" + auth.toString());
-        textView.setText("aaaaaaaaaaaaaaaaaaaaaaaaaa");
-        startActivity(new Intent(getApplicationContext(),Sign.class));
+    public void onResume(){
+        super.onResume();
+        if (auth.getCurrentUser() == null) {
+            Log.d(TAG, "Переход в activity Sign");
+            startActivity(new Intent(getApplicationContext(), Sign.class));
+        }else{
+            Log.d(TAG, "Переход в activity Note");
+            startActivity(new Intent(getApplicationContext(), Note.class));
+        }
     }
 
 }
