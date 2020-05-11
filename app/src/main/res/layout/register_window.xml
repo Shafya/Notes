@@ -44,6 +44,7 @@
                 app:met_floatingLabel="highlight"
                 app:met_baseColor="#0056d3"
                 app:met_primaryColor="#082654"
+                app:met_minCharacters="7"
                 app:met_singleLineEllipsis="true"/>
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
@@ -57,6 +58,7 @@
                 android:textSize="20sp"
                 app:met_floatingLabel="highlight"
                 app:met_baseColor="#0056d3"
+                app:met_minCharacters="7"
                 app:met_primaryColor="#082654"
                 app:met_singleLineEllipsis="true"/>
             <com.rengwuxian.materialedittext.MaterialEditText

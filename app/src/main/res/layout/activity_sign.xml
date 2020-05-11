@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/notess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -39,6 +40,51 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/notess"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/custombackground"
+        android:orientation="vertical">
+
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailField"
+            android:hint="Email"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:inputType="textEmailAddress"
+            android:text=""
+            android:textSize="18sp"
+            app:met_floatingLabel="highlight"
+            app:met_baseColor="#082654"
+            app:met_primaryColor="#204A87"
+            app:met_singleLineEllipsis="true"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/passField"
+            android:hint="Пароль"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="textPassword"
+            android:text=""
+            android:textSize="18sp"
+            app:met_floatingLabel="highlight"
+            app:met_baseColor="#082654"
+            app:met_primaryColor="#204A87"
+            app:met_singleLineEllipsis="true"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/text_bottom"
         android:layout_width="wrap_content"
@@ -60,18 +106,36 @@
         android:layout_margin="15dp"
         android:orientation="horizontal">
 
-
-        <Button
-            android:id="@+id/btnSignIn"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="4dp"
-            android:layout_weight="1"
-            android:background="@drawable/btn_sign_in"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/btnSignIn"
-            android:textColor="@android:color/white" />
+            android:layout_weight="1">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:id="@+id/progressBar"
+                android:indeterminateDrawable="@drawable/cpb"
+                android:indeterminateDuration="@android:integer/config_longAnimTime"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                tools:ignore="UnknownId" />
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:elevation="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_sign_in"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/btnSignIn"
+                android:textColor="#082654"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btnRegister"
@@ -83,7 +147,7 @@
             android:background="@drawable/btn_sign_in"
             android:fontFamily="@font/montserrat"
             android:text="@string/btnRegister"
-            android:textColor="@android:color/white" />
+            android:textColor="#082654" />
     </LinearLayout>
 
 </RelativeLayout>

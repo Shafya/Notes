@@ -4,17 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,6 +42,7 @@ public class Sign extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference users;
     RelativeLayout root;
+    ProgressBar progressBar;
 
 
     @Override
@@ -51,7 +57,7 @@ public class Sign extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Users");
         root = findViewById(R.id.root_element);
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,65 +75,59 @@ public class Sign extends AppCompatActivity {
 
 
         });
-
     }
 
     private void showSignInWindow() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Войти");
-        dialog.setMessage("Введите данные для входа");
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View sign_in_window = inflater.inflate(R.layout.sign_in_window, null);
-        dialog.setView(sign_in_window);
+        final MaterialEditText email = findViewById(R.id.emailField);
+        final MaterialEditText pass = findViewById(R.id.passField);
 
-        final MaterialEditText email = sign_in_window.findViewById(R.id.emailField);
-        final MaterialEditText pass = sign_in_window.findViewById(R.id.passField);
-        dialog.setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
+
+        if (TextUtils.isEmpty(email.getText().toString())){
+            Toast toast = Toast.makeText(Sign.this, "Введите почту", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 450);
+            toast.show();
+            return;
+        }
+        if (pass.getText().toString().length() < 7){
+            Toast toast = Toast.makeText(Sign.this, "Введите пароль", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 450);
+            toast.show();
+            return;
+        }
+
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                dialogInterface.dismiss();
+            public void run() {
+                progressBar.setVisibility(View.GONE);
             }
-        });
+        }, 4000);
+        btnSignIn.setText("");
+        progressBar.setElevation(7);
 
-        dialog.setPositiveButton("Войти", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                if (TextUtils.isEmpty(email.getText().toString())){
-                    Toast toast = Toast.makeText(Sign.this, "Введите вашу почту", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 400);
-                    toast.show();
-                    return;
-                }
-                if (pass.getText().toString().length() < 7){
-                    Toast toast = Toast.makeText(Sign.this, "Введите пароль", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 400);
-                    toast.show();
-                    return;
-                }
-
-                // Авторизация пользователя
-                auth.signInWithEmailAndPassword(email.getText().toString().toLowerCase(), pass.getText().toString())
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                Log.d(TAG, "Вход выполнен");
-                                finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
+        // Авторизация пользователя
+        auth.signInWithEmailAndPassword(email.getText().toString().toLowerCase(), pass.getText().toString())
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Ошибка при входе");
-                        Snackbar.make(root, "Произошла ошибка при авторизации", Snackbar.LENGTH_LONG).show();
+                    public void onSuccess(AuthResult authResult) {
+                        Log.d(TAG, "Вход выполнен");
+                        progressBar.setElevation(1);
+                        progressBar.setVisibility(ProgressBar.INVISIBLE);
+                        finish();
                     }
-                });
-
-
-
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                btnSignIn.setText(R.string.btnSignIn);
+                progressBar.setElevation(1);
+                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                Log.d(TAG, "Ошибка при входе");
+                Snackbar.make(root, "Произошла ошибка при авторизации", Snackbar.LENGTH_LONG).show();
             }
         });
 
-        dialog.show();
+
     }
 
     private void showRegisterWindow() {
@@ -198,7 +198,8 @@ public class Sign extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Snackbar.make(root, "Произошла ошибка при регистрации", Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(root, "Произошла ошибка при регистрации", Snackbar.LENGTH_LONG).setTextColor(Color.parseColor("#33AAAAAA"))
+                                                .setTextColor(Color.parseColor("#082654")).show();
                                     }
                                 });
                             }

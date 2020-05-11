@@ -32,7 +32,7 @@ public class Note extends AppCompatActivity {
         btn = (Button) findViewById(R.id.button);
 
         //Log.d(TAG, "TextView auth" + auth.getCurrentUser().getUid());
-        //textView.setText(auth.getCurrentUser().getUid());
+        textView.setText(auth.getCurrentUser().getUid());
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
