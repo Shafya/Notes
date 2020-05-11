@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pacifico_regular"
             android:text="@string/app_name"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="40sp" />
